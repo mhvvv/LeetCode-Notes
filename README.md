@@ -19,7 +19,3 @@
 
 [经典数据结构]  **待更新**
 
-### Path
-
-day by day,  stronger and stronger.
-
