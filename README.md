@@ -1,8 +1,8 @@
 # Data_Structures-and-Algorithms
 
-伟大思维闪耀，逻辑光芒万丈.
+**伟大思维闪耀，逻辑光芒万丈.**
 
-Talk is cheap, show me your code.
+**Talk is cheap, show me your code.**
 
 ### Description:
 学好数据结构与算法，走遍天下都不怕.  
