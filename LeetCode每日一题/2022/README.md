@@ -20,7 +20,7 @@
 
 嗯，只要我够强，我就可以。
 
-Yes, I'm Menghao, I believe I can and I do try my best. 
+Yes, I'm Menghao, I believe I can and I do try my best. (Will I really try my best ?)
 
 但永远不要忘了，努力是为了拥有更好的生活，the happy life is the most important thing. （躺平可不是快乐，更不是幸福）
 
