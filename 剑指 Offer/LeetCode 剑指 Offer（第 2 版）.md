@@ -1,3 +1,7 @@
+[题集](https://leetcode-cn.com/problem-list/xb9nqhhg/)
+
+---
+
 ### 剑指 Offer 03. 数组中重复的数字
 
 [题目链接](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/)
@@ -13,6 +17,64 @@ bool[]
 时间复杂度:  bool - O(n),   hash:  不小于O(n)，不大于O(nlogn).
 
 空间复杂度:  O(n)
+
+### 剑指 Offer 04. 二维数组中的查找
+
+[题目链接](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/)
+
+**评论区金手指:**
+
+站在右上角看, 这个矩阵其实就像是一个Binary Search Tree。然后，聪明的大家应该知道怎么做了.
+
+```C++
+bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
+    if(matrix.size() == 0) return false;
+
+    int x = matrix.size()-1, y = 0, m = matrix[0].size();
+    while(x >= 0 && y < m) {
+        int cur = matrix[x][y];
+        if(cur == target) return true;
+        else if(cur > target) --x;
+        else ++y;
+    }
+    return false;
+}
+```
+
+时间复杂度O(n).
+
+空间复杂度O(1).
+
+**常规想法:**
+
+有序数组查找，必然二分搜索. 即若target ∈ [matrix[x][0], matrix[x][m-1]] , 则对x行进行二分查找.
+
+```C++
+bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
+    if(matrix.size() == 0 || matrix[0].size() == 0) return false;
+
+    int m = matrix[0].size() - 1;
+    for(int i = 0; i < matrix.size(); ++i) {
+        if(target < matrix[i][0] || target > matrix[i][m]) continue;
+        int l = 0, r = m, mid;
+        while(l <= r) {
+            mid = l + (r-l)/2;
+            if(matrix[i][mid] == target) return true;
+            else if(matrix[i][mid] > target) r = mid - 1;
+            else l = mid + 1;
+        }
+    }
+    return false;
+}
+```
+
+时间复杂度O(nlogm).
+
+空间复杂度O(1).
+
+
+
+
 
 ### 剑指 Offer 06. 从尾到头打印链表
 
