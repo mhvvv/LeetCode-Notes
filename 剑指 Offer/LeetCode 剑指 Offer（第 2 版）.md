@@ -209,10 +209,10 @@ private:
 ```C++
 int fib(int n) {
     int dp[] = {0, 1};
-    constexpr int mod = 1e9+7;
-    for(int i=2; i<=n; ++i) 
-        dp[i%2] = (dp[(i-1)%2] + dp[(i-2)%2]) % mod; 
-    return dp[n%2];
+    constexpr int mod = 1e9 + 7;
+    for(int i=2; i<=n; ++i)
+        dp[i % 2] = (dp[0] + dp[1]) % mod;
+    return dp[n % 2];
 }
 ```
 
