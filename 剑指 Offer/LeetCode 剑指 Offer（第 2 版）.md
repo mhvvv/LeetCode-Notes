@@ -24,7 +24,7 @@ bool[]
 
 **评论区金手指:**
 
-站在右上角看, 这个矩阵其实就像是一个Binary Search Tree。然后，聪明的大家应该知道怎么做了.
+站在右上角看, 这个矩阵其实就像是一个`Binary Search Tree`。然后，聪明的大家应该知道怎么做了.
 
 ```C++
 bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
@@ -47,7 +47,7 @@ bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
 
 **常规想法:**
 
-有序数组查找，必然二分搜索. 即若target ∈ [matrix[x][0], matrix[x][m-1]] , 则对x行进行二分查找.
+有序数组查找，必然`二分查找`. 即若target ∈ [matrix[x][0], matrix[x][m-1]] , 则对x行进行二分查找.
 
 ```C++
 bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
@@ -71,8 +71,6 @@ bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
 时间复杂度O(nlogm).
 
 空间复杂度O(1).
-
-
 
 
 
@@ -206,15 +204,15 @@ private:
 
 [题目链接](https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/)
 
-没啥好说的. 来个滚动数组吧
+`dp`, 没啥好说的. 来个滚动数组吧
 
 ```C++
 int fib(int n) {
-    int a[] = {0, 1};
+    int dp[] = {0, 1};
     constexpr int mod = 1e9+7;
     for(int i=2; i<=n; ++i) 
-        a[i%2] = (a[(i-1)%2] + a[(i-2)%2]) % mod; 
-    return a[n%2];
+        dp[i%2] = (dp[(i-1)%2] + dp[(i-2)%2]) % mod; 
+    return dp[n%2];
 }
 ```
 
@@ -222,3 +220,24 @@ int fib(int n) {
 
 空间复杂度O(1).
 
+### 剑指 Offer 10- II. 青蛙跳台阶问题
+
+[题目链接](https://leetcode-cn.com/problems/qing-wa-tiao-tai-jie-wen-ti-lcof/)
+
+`dp`， 和10- I. 斐波那契数列完全相同.
+
+```C++
+int numWays(int n) {
+    if(n == 0) return 1;
+    
+    int dp[] = {1, 2};
+    constexpr int mod = 1e9 + 7;
+    for(int i=2; i<n; ++i)
+        dp[i % 2] = (dp[0] + dp[1]) % mod;
+    return dp[(n-1) % 2];
+}
+```
+
+时间复杂度O(n).
+
+空间复杂度O(1).
