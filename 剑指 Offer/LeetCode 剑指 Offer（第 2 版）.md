@@ -274,6 +274,8 @@ return nums[r]
 ```
 好好体会吧. 对于不那么聪明的选手，模拟是最好的学习方式.
 
+**Solution：**
+
 ```C++
 int findMin(vector<int>& nums) {
     int l = 0, r = nums.size() - 1, mid;
