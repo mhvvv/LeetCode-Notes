@@ -289,3 +289,36 @@ int findMin(vector<int>& nums) {
 ```
 
 时/空: O(logn) / O(1)
+
+**回到原题目：**
+
+(这里仍建议画出折线图, 我知道聪明的你已经在脑里画好了)
+
+与上面的153.题相比，数组中的数字允许重复.
+
+多了numbers[mid] == numbers[r]的情况,
+
+对于这种情况，我们不知道最小值到底就是numbers[mid]，还是在在mid的左边，还是在mid的右边. 即可能出现以下情况：
+```txt
+{3, 3, 1, 3}
+
+l = 0, r = 3, mid = 1
+
+nums[mid] = 3 = nums[r]. 
+```
+但我们可以肯定的是，最小值一定不会出现在r的后边，只能出现在r的左边且不会是当前r所在的位置(while(l<r)，在l < r的条件下，l+(r-l)/2 必定小于r)。在这种情况下我们只需要--r。
+
+```C++
+int minArray(vector<int>& numbers) {
+    int l = 0, r = numbers.size() - 1, mid;
+    while(l < r) {
+        mid = l + (r-l)/2;
+        if(numbers[mid] > numbers[r]) l = mid + 1;
+        else if(numbers[mid] < numbers[r]) r = mid;
+        // ==
+        else r = mid;
+
+    }
+    return numbers[r];
+}
+```
