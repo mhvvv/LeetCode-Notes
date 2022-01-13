@@ -322,3 +322,7 @@ int minArray(vector<int>& numbers) {
     return numbers[r];
 }
 ```
+
+时间复杂度：平均O(logn), 最差O(n)
+
+空间复杂度：O(1)
