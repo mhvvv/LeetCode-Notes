@@ -241,3 +241,47 @@ int numWays(int n) {
 时间复杂度O(n).
 
 空间复杂度O(1).
+
+### 剑指 Offer 11. 旋转数组的最小数
+
+[题目链接](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/)
+
+这必然是让你设计O(logn)时间复杂度的查找算法.   
+
+`二分查找`
+
+若数组中没有重复元素，则问题简化为：[153. 寻找旋转排序数组中的最小值](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/)
+
+(以下，为了更形象的理解，可以画出折线图，参考官方题解中的图)
+
+收先明确，最小值一定比其后边所有位置上的元素都小.
+
+
+while(l <= r):
+* 如果nums[mid] > nums[r]，又min_element < nums[r]，则最小值一定在mid的右边，更新 l = mid + 1；
+* 如果nums[mid] < nums[r]，则说明最小值一定在mid左边，更新 r = mid - 1
+
+这里需要考虑，最后应该如何返回最小值. 对于一般的二分查找，当nums[mid] == target时，只需要返回mid即可，但这里我们并不知道target是啥，所以不能使用 == 时返回。
+
+考虑此种情况: l < mid < r, nums[mid] = min_element, nums[mid] < nums[r], 此时若更新r = mid - 1, 则永远找不到最小值.
+
+对于二分查找解决target不具体给出的问题，往往采用以下方式:
+* while(l < r)
+* >： l = mid + 1
+* else(<=): r = mid 而非 mid - 1，这样可以保证要查找的位置不会被跳过  
+* return nums[r]
+好好体会吧. 对于不那么聪明的选手，模拟是最好的学习方式.
+
+```C++
+int findMin(vector<int>& nums) {
+    int l = 0, r = nums.size() - 1, mid;
+    while(l < r) {
+        mid = l + (r-l)/2;
+        if(nums[mid] > nums[r]) l = mid + 1;
+        else r = mid;
+    }
+    return nums[r];
+}
+```
+
+时/空: O(logn) / O(1)
