@@ -256,7 +256,6 @@ int numWays(int n) {
 
 收先明确，最小值一定比其后边所有位置上的元素都小.
 
-
 while(l <= r):
 * 如果nums[mid] > nums[r]，又min_element < nums[r]，则最小值一定在mid的右边，更新 l = mid + 1；
 * 如果nums[mid] < nums[r]，则说明最小值一定在mid左边，更新 r = mid - 1
@@ -266,10 +265,13 @@ while(l <= r):
 考虑此种情况: l < mid < r, nums[mid] = min_element, nums[mid] < nums[r], 此时若更新r = mid - 1, 则永远找不到最小值.
 
 对于二分查找解决target不具体给出的问题，往往采用以下方式:
-* while(l < r)
-* >： l = mid + 1
-* else(<=): r = mid 而非 mid - 1，这样可以保证要查找的位置不会被跳过  
-* return nums[r]
+```
+while(l < r) {
+    >： l = mid + 1
+    else( <= ): r = mid 而非 mid - 1，这样可以保证要查找的位置不会被跳过  
+}
+return nums[r]
+```
 好好体会吧. 对于不那么聪明的选手，模拟是最好的学习方式.
 
 ```C++
