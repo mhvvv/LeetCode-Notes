@@ -1,5 +1,69 @@
 [题集](https://leetcode-cn.com/problem-list/xb9nqhhg/)
 
+[学习计划](https://leetcode-cn.com/study-plan/lcof/?progress=nwn96jd)
+
+---
+
+## 1. 栈与队列
+
+### 剑指 Offer 09. 用两个栈实现队列
+
+[题目链接](https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/)
+
+入队操作的时候，若出栈不为空，不需要将出栈中的元素全部移到入栈中.
+
+对应的，只有出栈为且进行出队操作时，才需要将入栈中的元素全部移到出栈中.
+
+这样做可以避免同一个元素在两个栈间反复移动，浪费资源.
+
+```C++
+class CQueue {
+public:
+    CQueue() {
+    }
+    
+    void appendTail(int value) {
+        s_in.push(value);
+    }
+    
+    int deleteHead() {
+        if(s_out.empty()) {
+            while(!s_in.empty()) {
+                s_out.push(s_in.top());
+                s_in.pop();
+            }
+        }
+        if(s_out.empty()) return -1;
+        int theHead = s_out.top();
+        s_out.pop();
+        return theHead;
+    }
+
+private:
+    stack<int> s_in, s_out;
+};
+```
+每个元素都只会被在两个栈间移动一次，每个元素时间O(1)，时间复杂度O(n).
+
+空间复杂度O(n).
+
+### 剑指 Offer 30. 包含min函数的栈
+
+[题目链接](https://leetcode-cn.com/problems/bao-han-minhan-shu-de-zhan-lcof/)
+
+思路: 双栈实现MinStack
+
+一个栈(s1)正常，另外保证一个栈(s2)的元素从栈底到栈顶单调不增，用于实现`min()`函数.
+
+* `.min()`：只需返回`s2.top()`;
+* `.push()`：是否加入s2根据s2能否维持单调性;
+* `.pop()`：若`s2.top() == s1.top()`， s2才出栈;
+* `.top()`：返回`s1.top()`.
+
+
+
+---
+
 ---
 
 ### 剑指 Offer 03. 数组中重复的数字
@@ -159,46 +223,6 @@ TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
 
 空间复杂度O(n).
 
-### 剑指 Offer 09. 用两个栈实现队列
-
-[题目链接](https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/)
-
-入队操作的时候，若出栈不为空，不需要将出栈中的元素全部移到入栈中.
-
-对应的，只有出栈为且进行出队操作时，才需要将入栈中的元素全部移到出栈中.
-
-这样做可以避免同一个元素在两个栈间反复移动，浪费资源.
-
-```C++
-class CQueue {
-public:
-    CQueue() {
-    }
-    
-    void appendTail(int value) {
-        s_in.push(value);
-    }
-    
-    int deleteHead() {
-        if(s_out.empty()) {
-            while(!s_in.empty()) {
-                s_out.push(s_in.top());
-                s_in.pop();
-            }
-        }
-        if(s_out.empty()) return -1;
-        int theHead = s_out.top();
-        s_out.pop();
-        return theHead;
-    }
-
-private:
-    stack<int> s_in, s_out;
-};
-```
-每个元素都只会被在两个栈间移动一次，每个元素时间O(1)，时间复杂度O(n).
-
-空间复杂度O(n).
 
 ### 剑指 Offer 10- I. 斐波那契数列
 
