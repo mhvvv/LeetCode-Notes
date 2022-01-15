@@ -7,3 +7,6 @@ ByteDance /  Tencent,
 I am coming !
 
 Do try my best, do keep my passion, do realize my dream.
+
+
+(新... 新华社？)
