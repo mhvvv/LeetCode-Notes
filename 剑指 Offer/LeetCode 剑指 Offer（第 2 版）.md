@@ -157,7 +157,38 @@ ListNode* reverseList(ListNode* head) {
 
 [题目链接](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/)
 
+**思路1：** 
 
+先不考虑`random`指针重建一个链表，然后两层for同时遍历新旧链表的每个节点，根据在各自链表中的相同位次，在寻找旧链表每个节点的`random`指向时便可对应找到新链表每个节点的`random`指向.
+
+时间复杂度O(n^2), 空间复杂度O(1)。 这里的的空间复杂度仅考虑辅助空间的消耗，下同
+
+**思路2：**
+
+仍然是先不考虑`random`指针建立一个新链表，但是在建立链表的过程中，用`map`记录下原链表每个节点与其对应的新链表的中的节点的对应关系。之后只需同时遍历一遍新旧链表，就可找到新链表每个节点的`random`指向.
+
+```C++
+Node* copyRandomList(Node* head) {
+    Node *newHead = new Node(-1), *tail = newHead, *t = head;
+    unordered_map<Node*, Node*> ump;
+    while(t) {
+        tail->next = new Node(t->val);
+        tail = tail->next;
+        ump[t] = tail;
+        t = t->next;
+    }
+    tail = newHead->next, t = head;
+    while(tail) {
+        tail->random = ump[t->random];
+        tail = tail->next;
+        t = t->next;
+    }
+    tail = newHead->next;  // 此时tail指向真正的头节点, 逻辑上说不应该用`tail`表示
+    delete newHead;
+    return tail;
+}
+```
+时间复杂度O(n), 空间复杂度O(n)
 
 ---
 
