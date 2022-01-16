@@ -1,0 +1,65 @@
+> **溯的本质是穷举，穷举所有可能，然后选出我们想要的答案**
+
+为了防止系统栈溢出以及， 一般来说回溯策略选择 “更宽 更浅” 
+
+
+
+一个分支的层去重：  递归体bool数组
+
+层去重：————————
+
+枝去重：成员函数bool数组
+
+
+
+
+
+**搜索树的宽和深**
+
+
+
+#### [77. 组合](https://leetcode-cn.com/problems/combinations/)
+
+#### [216. 组合总和 III](https://leetcode-cn.com/problems/combination-sum-iii/)
+
+#### [17. 电话号码的字母组合](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)
+
+#### [39. 组合总和](https://leetcode-cn.com/problems/combination-sum/)
+
+
+
+[40. 组合总和 II](https://leetcode-cn.com/problems/combination-sum-ii/)      如何去重 ： 搜索树**层（宽）去重**还是**枝（深）去重**？
+
+[131. 分割回文串](https://leetcode-cn.com/problems/palindrome-partitioning/)
+
+[93. 复原 IP 地址](https://leetcode-cn.com/problems/restore-ip-addresses/)        string函数
+
+
+
+
+**在树形结构中子集问题是要收集所有节点的结果，而组合问题是收集叶子节点的结果**。
+
+[78. 子集](https://leetcode-cn.com/problems/subsets/)         所有节点都代表一个答案 而非只有叶节点代表答案
+
+[90. 子集 II](https://leetcode-cn.com/problems/subsets-ii/)        这题本身没有什么好说的， 但使用bool-vis数组时，如何判断时枝重复还是层重复还是挺妙的。
+
+
+
+[491. 递增子序列](https://leetcode-cn.com/problems/increasing-subsequences/)
+
+
+
+[46. 全排列](https://leetcode-cn.com/problems/permutations/)
+
+[47. 全排列 II](https://leetcode-cn.com/problems/permutations-ii/)
+
+
+
+[51. N 皇后](https://leetcode-cn.com/problems/n-queens/)
+
+[37. 解数独](https://leetcode-cn.com/problems/sudoku-solver/)
+
+
+
+
+
