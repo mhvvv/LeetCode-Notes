@@ -194,7 +194,9 @@ Node* copyRandomList(Node* head) {
 
 交叉设置新旧节点，注意最终不能改变原链表.  
 
-在每个旧节点后边插入其对应的新节点，即 `old_1 -> new_1 -> old_2 -> new_2 -> ... -> old_end -> new_end -> null`，则`new_k.random = old_k.random.next 或 nullptr`
+在每个旧节点后边插入其对应的新节点，即 `old_1 -> new_1 -> old_2 -> new_2 -> ... -> old_end -> new_end -> null`，则`new_k.random = old_k.random.next 或 nullptr`。 
+
+最后再将`old_k`和`new_k`分开即可.
 
 ```C++
 Node* copyRandomList(Node* head) {
