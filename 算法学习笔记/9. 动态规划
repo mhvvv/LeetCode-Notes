@@ -1,0 +1,186 @@
+step:
+  1. 状态
+  2. 状态转移方程
+  3. （求解方向 按照何种顺序“填表格”）& 初始状态 
+
+
+
+**动态规划的题目分为两大类:**   **一种是求最优解类，典型问题是背包问题;        另一种就是计数类( 方案数，路线数）**， **以及判断是否可以类 （子集和问题）**
+
+
+
+**找问题的最好方式就是把dp数组打印出来，看看究竟是不是按照自己思路推导的！**
+
+
+
+**考虑dp数组是否可以降维，即是否可以使用滚动数组**
+
+
+
+## 基础题目
+
+[509. 斐波那契数](https://leetcode-cn.com/problems/fibonacci-number/)
+
+[70. 爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
+
+[746. 使用最小花费爬楼梯](https://leetcode-cn.com/problems/min-cost-climbing-stairs/)
+
+ [62. 不同路径](https://leetcode-cn.com/problems/unique-paths/)
+
+[63. 不同路径 II](https://leetcode-cn.com/problems/unique-paths-ii/)            (从起点到终点， 从终点到起点都可以）
+
+[343. 整数拆分](https://leetcode-cn.com/problems/integer-break/)
+
+[96. 不同的二叉搜索树](https://leetcode-cn.com/problems/unique-binary-search-trees/)
+
+
+
+## 背包问题
+
+![](https://secure2.wostatic.cn/static/6aVQfdeyTpEVoZ22rsE69C/image.png)
+
+
+
+装满背包方案数问题，特别注意是否需要初始化状态`dp[0] = 1 `， 因为装满容量为0的背包有一种方式，那就是什么都不装。这是递推的基础。
+
+
+
+最大价值：max，  min
+
+方案数：+=
+
+
+
+背包内外层循环是否可以交换?  
+
+
+
+#### 01背包
+
+[416. 分割等和子集](https://leetcode-cn.com/problems/partition-equal-subset-sum/)  （二维记忆化)
+
+[1049. 最后一块石头的重量 II](https://leetcode-cn.com/problems/last-stone-weight-ii/)
+
+[494. 目标和](https://leetcode-cn.com/problems/target-sum/)
+
+[474. 一和零](https://leetcode-cn.com/problems/ones-and-zeroes/)
+
+
+
+#### 完全背包 
+
+二维数组实现完全背包?
+
+[518. 零钱兑换 II](https://leetcode-cn.com/problems/coin-change-2/)
+
+[377. 组合总和 Ⅳ](https://leetcode-cn.com/problems/combination-sum-iv/)
+
+[70. 爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
+
+[322. 零钱兑换](https://leetcode-cn.com/problems/coin-change/)
+
+[279. 完全平方数](https://leetcode-cn.com/problems/perfect-squares/)
+
+[139. 单词拆分](https://leetcode-cn.com/problems/word-break/)
+
+
+
+[**面试题 08.11. 硬币**](https://leetcode-cn.com/problems/coin-lcci/)  ？？？？
+
+```C++
+这似乎是个**完全背包**问题， 但此时我已经忘记完全背包的套路了；  但，我很强，我不需要套路. 嗯，不需要
+
+1. 状态:
+dp[i][j]: 用前i种硬币 装满 j 有几种装法
+
+2. 状态转移方程
+dp[i][j] = dp[i-1][j] + dp[i-1][j-k*coins[i]], 其中 k*coins[i] <= j
+
+3. 求解方向
+↓ ↘   (考虑一维滚动数组)
+
+4. 初始状态
+dp[~][0] = 1
+dp[0][!0] = 0
+
+-> 时间优化：
+dp[i][j] = dp[i-1][j] + dp[i-1][j-coins[i-1]] + dp[i-1][j-2*coins[i-1]] + 
+                        dp[i-1][j-3*coins[i-1]] + ··· + dp[i-1][j-k*coins[i-1]]
+dp[i][j-coins[i]] = dp[i-1][j-coins[i]] + dp[i-1][j-2*coins[i-1]] + 
+                        dp[i-1][j-3*coins[i-1]] + ··· + dp[i-1][j-k*coins[i-1]]
+
+∴  dp[i][j] = dp[i-1][j] + dp[i][j-coins[i]]    j >= coins[i]
+
+-> 空间优化, 滚动数组
+    dp[j] = (dp[j] + dp[j-coins[i]])     j 要从大倒小
+
+```
+
+## 打家劫舍
+
+[198. 打家劫舍](https://leetcode-cn.com/problems/house-robber/)
+
+[213. 打家劫舍 II](https://leetcode-cn.com/problems/house-robber-ii/)
+
+[337. 打家劫舍 III](https://leetcode-cn.com/problems/house-robber-iii/)      树形dp入门
+
+
+
+## 股票问题
+
+[121. 买卖股票的最佳时机](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/)
+
+[122. 买卖股票的最佳时机 II](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/)
+
+[123. 买卖股票的最佳时机 III](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/)
+
+[188. 买卖股票的最佳时机 IV](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/)
+
+[309. 最佳买卖股票时机含冷冻期](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
+
+[714. 买卖股票的最佳时机含手续费](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
+
+
+
+# 子序列系列
+
+[300. 最长递增子序列](https://leetcode-cn.com/problems/longest-increasing-subsequence/)
+
+[674. 最长连续递增序列](https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/)
+
+[718. 最长重复子数组](https://leetcode-cn.com/problems/maximum-length-of-repeated-subarray/)
+
+[1143. 最长公共子序列](https://leetcode-cn.com/problems/longest-common-subsequence/)
+
+[1035. 不相交的线](https://leetcode-cn.com/problems/uncrossed-lines/)
+
+[53. 最大子序和](https://leetcode-cn.com/problems/maximum-subarray/)
+
+[392. 判断子序列](https://leetcode-cn.com/problems/is-subsequence/)
+
+> Summary:
+
+子序列默认不连续，  `dp[i]`常表示截止i位置
+子数组默认连续， `dp[i]`常表示以nums[i]为结尾
+
+**“删”**?
+
+[392. 判断子序列](https://leetcode-cn.com/problems/is-subsequence/)
+
+[115. 不同的子序列](https://leetcode-cn.com/problems/distinct-subsequences/)
+
+[583. 两个字符串的删除操作](https://leetcode-cn.com/problems/delete-operation-for-two-strings/)
+
+[72. 编辑距离](https://leetcode-cn.com/problems/edit-distance/)
+
+---
+
+[647. 回文子串](https://leetcode-cn.com/problems/palindromic-substrings/)      
+
+> 计数问题；
+dp数组用于记录状态而非记数，    且 体现出遍历顺序的重要性        遍历顺序依赖于状态转移方程
+
+---
+
+[516. 最长回文子序列](https://leetcode-cn.com/problems/longest-palindromic-subsequence/)             dp最优质， 体现遍历顺序
+
