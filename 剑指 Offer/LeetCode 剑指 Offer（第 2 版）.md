@@ -4,7 +4,7 @@
 
 ## 1. 栈与队列
 
-### 剑指 Offer 09. 用两个栈实现队列
+### [剑指 Offer 09. 用两个栈实现队列]
 
 [题目链接](https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/)
 
@@ -41,7 +41,7 @@ private:
     stack<int> s_in, s_out;
 };
 ```
-每个元素都只会被在两个栈间移动一次，每个元素时间O(1)，时间复杂度O(n).
+每个元素都只会被在两个栈间移动一次，每个元素时间O(1)，总时间复杂度O(n).
 
 空间复杂度O(n).
 
@@ -92,8 +92,6 @@ private:
 
 ## 2. 链表
 
-
-
 ### 剑指 Offer 06. 从尾到头打印链表
 
 [题目链接](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
@@ -133,7 +131,27 @@ public:
 
 空间复杂度O(n).
 
+### 剑指 Offer 24. 反转链表
 
+[题目链接](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/)
+
+头插法原地反转链表
+
+```C++
+ListNode* reverseList(ListNode* head) {
+    ListNode *vHead = new ListNode;
+    while(head) {
+        ListNode *t = head->next;
+        head->next = vHead->next;
+        vHead->next = head;
+        head = t;
+    }
+    head = vHead->next;
+    delete vHead;
+    return head;
+}
+```
+时间复杂度O(n), 空间复杂度O(1)
 
 
 ---
