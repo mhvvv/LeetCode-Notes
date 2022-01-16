@@ -90,6 +90,49 @@ private:
 
 所有操作时间复杂度O(1)
 
+## 2. 链表
+
+
+
+### 剑指 Offer 06. 从尾到头打印链表
+
+[题目链接](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
+
+逆序输出链表，reverse() 或 递归.
+
+**reverse()**
+```C++
+vector<int> printListFromTailToHead(ListNode* head) {
+    vector<int> result;
+    while(head != NULL) {
+        result.push_back(head->val);
+        head  = head->next;
+    }
+    reverse(result.begin(), result.end());
+    return result;
+}
+```
+**递归**
+```C++
+vector<int> result;
+void recursion(ListNode *head) {
+    if(head == NULL) return;
+    dfs(head->next);
+    result.push_back(head->val);
+}
+vector<int> printListFromTailToHead(ListNode* head) {
+    recursion(head);
+    return result;
+}
+```
+
+时间复杂度O(n).
+
+空间复杂度O(n).
+
+
+
+
 ---
 
 ---
@@ -165,42 +208,6 @@ bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
 空间复杂度O(1).
 
 
-
-### 剑指 Offer 06. 从尾到头打印链表
-
-[题目链接](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
-
-逆序输出链表，reverse() 或 递归.
-
-**reverse()**
-```C++
-vector<int> printListFromTailToHead(ListNode* head) {
-    vector<int> result;
-    while(head != NULL) {
-        result.push_back(head->val);
-        head  = head->next;
-    }
-    reverse(result.begin(), result.end());
-    return result;
-}
-```
-**递归**
-```C++
-vector<int> result;
-void recursion(ListNode *head) {
-    if(head == NULL) return;
-    dfs(head->next);
-    result.push_back(head->val);
-}
-vector<int> printListFromTailToHead(ListNode* head) {
-    recursion(head);
-    return result;
-}
-```
-
-时间复杂度O(n).
-
-空间复杂度O(n).
 
 ### 剑指 Offer 07. 重建二叉树
 
