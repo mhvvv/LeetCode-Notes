@@ -102,7 +102,7 @@ private:
 
 **reverse()**
 ```C++
-vector<int> printListFromTailToHead(ListNode* head) {
+vector<int> reversePrint(ListNode* head) {
     vector<int> result;
     while(head != NULL) {
         result.push_back(head->val);
@@ -114,16 +114,19 @@ vector<int> printListFromTailToHead(ListNode* head) {
 ```
 **递归**
 ```C++
-vector<int> result;
-void recursion(ListNode *head) {
-    if(head == NULL) return;
-    dfs(head->next);
-    result.push_back(head->val);
-}
-vector<int> printListFromTailToHead(ListNode* head) {
-    recursion(head);
-    return result;
-}
+class Solution {
+public:
+    vector<int> result;
+    void recursion(ListNode *head) {
+        if(head == NULL) return;
+        recursion(head->next);
+        result.push_back(head->val);
+    }
+    vector<int> reversePrint(ListNode* head) {
+        recursion(head);
+        return result;
+    }
+};
 ```
 
 时间复杂度O(n).
