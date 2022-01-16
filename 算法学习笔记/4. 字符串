@@ -1,0 +1,37 @@
+string - erase() 方法  时间复杂度O(n)
+
+
+
+**翻转字符串一种思路：**
+
+1. 翻转整个字符串
+2. 反转指定子串 如题 151. 翻转字符串里的单词
+
+
+
+**朴实无华**
+
+[344. 反转字符串](https://leetcode-cn.com/problems/reverse-string/)
+
+[541. 反转字符串 II](https://leetcode-cn.com/problems/reverse-string-ii/)
+
+
+**空间O(1)方法**
+
+[151. 翻转字符串里的单词](https://leetcode-cn.com/problems/reverse-words-in-a-string/) 
+
+[剑指 Offer 05. 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)    ****
+
+[剑指 Offer 58 - II. 左旋转字符串](https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/)
+
+
+
+**躲不开的KMP**
+
+[KMP模板]((https://github.com/mhvvv/Data_structures-and-algorithms/blob/main/经典数据结构/KMP.cpp))
+
+
+
+[28. 实现 strStr()](https://leetcode-cn.com/problems/implement-strstr/)
+
+[459. 重复的子字符串](https://leetcode-cn.com/problems/repeated-substring-pattern/)       彻底弄懂kmp 和这题Leetcode官方解法的证明 （to /ym kmp模板）
