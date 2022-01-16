@@ -190,6 +190,41 @@ Node* copyRandomList(Node* head) {
 ```
 时间复杂度O(n), 空间复杂度O(n)
 
+**思路3：**
+
+交叉设置新旧节点，注意最终不能改变原链表.  
+
+在每个旧节点后边插入其对应的新节点，即 `old_1 -> new_1 -> old_2 -> new_2 -> ... -> old_end -> new_end -> null`，则`new_k.random = old_k.random.next 或 nullptr`
+
+```C++
+Node* copyRandomList(Node* head) {
+    Node *t = head;
+    while(t) {
+        Node *theCopy = new Node(t->val);
+        theCopy->next = t->next;
+        t->next = theCopy;
+        t = t->next->next;
+    }
+    t = head;
+    while(t) {
+        t->next->random = t->random == nullptr ? nullptr : t->random->next;
+        t = t->next->next;
+    }
+    t = head;
+    Node *vHead = new Node(-1), *newHead = vHead;
+    while(t) {
+        newHead->next = t->next;
+        newHead = newHead->next;
+        t->next = t->next->next;  // 最终不能改变原链表
+        t = t->next;
+    }
+    newHead = vHead->next;
+    delete vHead;
+    return newHead;
+}
+```
+时间复杂度O(n)，空间复杂度O(1)
+
 ---
 
 ---
