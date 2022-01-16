@@ -4,7 +4,7 @@
 
 ## 1. 栈与队列
 
-### [剑指 Offer 09. 用两个栈实现队列]
+### 剑指 Offer 09. 用两个栈实现队列
 
 [题目链接](https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/)
 
@@ -152,6 +152,11 @@ ListNode* reverseList(ListNode* head) {
 }
 ```
 时间复杂度O(n), 空间复杂度O(1)
+
+### 剑指 Offer 35. 复杂链表的复制
+
+[题目链接](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/)
+
 
 
 ---
