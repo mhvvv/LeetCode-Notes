@@ -227,6 +227,10 @@ Node* copyRandomList(Node* head) {
 ```
 时间复杂度O(n)，空间复杂度O(1)
 
+## 3. 字符串
+
+[../算法学习笔记/4. 字符串](https://github.com/mhvvv/Data_structures-and-algorithms/blob/main/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/4.%20%E5%AD%97%E7%AC%A6%E4%B8%B2.md)
+
 ---
 
 ---
