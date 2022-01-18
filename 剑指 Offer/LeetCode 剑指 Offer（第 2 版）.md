@@ -231,7 +231,110 @@ Node* copyRandomList(Node* head) {
 
 [../算法学习笔记/4. 字符串](https://github.com/mhvvv/Data_structures-and-algorithms/blob/main/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/4.%20%E5%AD%97%E7%AC%A6%E4%B8%B2.md)
 
----
+## 4. 查找算法
+
+**有序数组上的查找一般都是二分查找**
+
+### 剑指 Offer 03. 数组中重复的数字
+
+[题目链接](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/)
+
+哈希
+
+```C++
+int findRepeatNumber(vector<int>& nums) {
+    unordered_set<int> s;
+    for(int num : nums) {
+        if(s.find(num) != s.end())
+            return num;
+        s.insert(num);
+    }
+    return 0;
+}
+```
+O(n), O(n)
+
+### 剑指 Offer 53 - I. 在排序数组中查找数字 I
+
+[题目链接](https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof/)
+
+二分查找上下界.
+
+```C++
+int search(vector<int>& nums, int target) {
+    //if(nums.size() == 0) return 0;
+    int low = -1, high = -2;
+    int l = 0, r = nums.size() - 1, mid;
+    while(l <= r) {
+        mid = l + (r-l)/2;
+        if(nums[mid] == target) {
+            low = mid;
+            r = mid-1;
+        }
+        else if(nums[mid] > target) r = mid-1;
+        else l = mid+1;
+    }
+    l = 0, r = nums.size() - 1;
+    while(l <= r) {
+        mid = l + (r-l)/2;
+        if(nums[mid] == target) {
+            high = mid;
+            l = mid+1;
+        }
+        else if(nums[mid] > target) r = mid-1;
+        else l = mid+1;
+    }
+    return high - low + 1;
+}
+```
+
+O(nlogn), O(1)
+
+### 剑指 Offer 53 - II. 0～n-1中缺失的数字
+
+[题目链接](https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof/)
+
+所用的二分思想很简单,关键是如何设置边界，如何修改`l / r`指针，以及最后如何返回
+
+**思想：**
+
+数组长度为n，求0 -> n这n+1个数中缺少的那一个数。假设有指向数组中间位置的指针`mid = l + (r-l)/2`, 若数组中一个数字都不缺，则`nums[mid] = mid`.
+
+即:
+
+* 若 `nums[mid] > mid`, 则左边缺少数字, 
+* 若 `n - nums[mid] > (n - 1)  - mid`, 则右边数字缺少数字. (不缺数字时, nums[n-1] = n, n - nums[mid] == (n-1) - mid) 
+* 否则，不缺少数字
+
+**具体实现：**
+
+这里希望无论是何种情况退出二分，最后都可以只用`l`或`r`指针表示缺少的值.
+
+(以下结论为我个人的写法总结, 实际上二分有很多种理解)
+
+二分的退出有两种情况:
+* `while(l <= r); l = mid + 1, r = mid - 1`, 此种情况必然是左右闭区间，一般用于查找数组中存在的数返回mid，或确定数组中没有这个数.
+* `while(l < r); l = mid + 1, r = mid`, 此种情况一般用于左闭右开区间，一般用于查找边界，返回l或r相关的表达式，具体与谁相关，一般是找两组不同退出方式(l右移导致/r左移导致)的样例模拟
+
+实现二分时，首先判断应使用上述那种情况.
+
+本题适用于第二种情况，初始化`l = 0, r = n = nums.size()`. 
+
+最后返回的值直接就等于指针l的值.
+
+```C++
+int missingNumber(vector<int>& nums) {
+    int l = 0, r = nums.size(), mid, n = nums.size();
+    while(l < r) {
+        mid = l + (r-l)/2;
+        if(nums[mid] > mid) r = mid;
+        else if(n - nums[mid] > n-1-mid) l = mid+1;
+    }  
+    return l;
+}
+```
+
+O(logn)， O(1)
 
 ---
 
