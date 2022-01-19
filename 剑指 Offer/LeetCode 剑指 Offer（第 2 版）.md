@@ -444,8 +444,28 @@ int minArray(vector<int>& numbers) {
 
 空间复杂度：O(1)
 
+### 剑指 Offer 50. 第一个只出现一次的字符
 
+[题目链接](https://leetcode-cn.com/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof/)
 
+哈希, 一次遍历建立hash_map统计各字符出现次数, 一次遍历寻找只出现一次的字符.
+
+```C++
+char firstUniqChar(string s) {
+    unordered_map<char, int> ump;
+    for(char ch : s) 
+        ++ump[ch];
+    for(char ch : s) {
+        if(ump[ch] == 1) 
+            return ch;
+    }
+    return ' ';     
+}
+```
+
+O(n), O(26)
+
+弱弱的问一句：官方题解是在憋本科毕设么？
 
 
 
