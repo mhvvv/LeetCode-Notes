@@ -314,7 +314,7 @@ O(nlogn), O(1)
 
 二分查找分两种情况:
 * `while(l <= r); l = mid + 1, r = mid - 1`, 此种情况必然是左右闭区间，一般用于查找数组中存在的数返回mid，或确定数组中没有这个数.
-* `while(l < r); l = mid + 1, r = mid`, 此种情况一般用于左闭右开区间，一般用于查找边界，返回l或r相关的表达式，具体与谁相关，一般是找两组不同退出方式(l右移导致/r左移导致)的样例模拟
+* `while(l < r); l = mid + 1, r = mid`, 此种情况一般返回l或r相关的表达式，具体与谁相关，r初始为`size()`还是`size()-1`，一般是找两组不同退出方式(l右移导致/r左移导致)的样例模拟
 
 实现二分时，首先判断应使用上述那种情况.
 
@@ -335,24 +335,6 @@ int missingNumber(vector<int>& nums) {
 ```
 
 O(logn)， O(1)
-
----
-
-### 剑指 Offer 03. 数组中重复的数字
-
-[题目链接](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/)
-
-遍历
-
-```C++
-hash: (unordered_) set / map
-
-bool[]
-```
-
-时间复杂度:  bool - O(n),   hash:  不小于O(n)，不大于O(nlogn).
-
-空间复杂度:  O(n)
 
 ### 剑指 Offer 04. 二维数组中的查找
 
@@ -377,9 +359,127 @@ bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
 }
 ```
 
-时间复杂度O(n).
+O(n)，O(1).
 
-空间复杂度O(1).
+
+### 剑指 Offer 11. 旋转数组的最小数
+
+[题目链接](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/)
+
+这必然是让你设计O(logn)时间复杂度的查找算法.   
+
+`二分查找`
+
+若数组中没有重复元素，则问题简化为：[153. 寻找旋转排序数组中的最小值](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/)
+
+(以下，为了更形象的理解，可以画出折线图，参考官方题解中的图)
+
+收先明确，最小值一定比其后边所有位置上的元素都小.
+
+* 如果nums[mid] > nums[r]，又min_element < nums[r]，则最小值一定在mid的右边，更新 l = mid + 1；
+* 如果nums[mid] < nums[r]，则说明最小值一定在mid左边或就是mid所在位置上的数，更新 r = mid
+
+这里需要考虑，最后应该如何返回最小值. 对于一般的二分查找，当nums[mid] == target时，只需要返回mid即可，但这里我们并不知道target是啥，所以不能使用 == 时返回。
+
+对于二分查找解决target不具体给出的问题，往往采用以下方式:
+```
+while(l < r) {
+    >： l = mid + 1
+    else( <= ): r = mid 而非 mid - 1，这样可以保证要查找的位置不会被跳过  
+}
+return nums[r]
+```
+好好体会吧. 对于不那么聪明的选手，模拟是最好的学习方式.
+
+**Solution：**
+
+```C++
+int findMin(vector<int>& nums) {
+    int l = 0, r = nums.size() - 1, mid;
+    while(l < r) {
+        mid = l + (r-l)/2;
+        if(nums[mid] > nums[r]) l = mid + 1;
+        else r = mid;
+    }
+    return nums[r];
+}
+```
+
+时/空: O(logn) / O(1)
+
+**回到原题目：**
+
+(这里仍建议画出折线图, 我知道聪明的你已经在脑里画好了)
+
+与上面的153.题相比，数组中的数字允许重复.
+
+多了numbers[mid] == numbers[r]的情况,
+
+对于这种情况，我们不知道最小值到底就是numbers[mid]，还是在在mid的左边，还是在mid的右边. 即可能出现以下情况：
+```txt
+{3, 3, 1, 3}
+
+l = 0, r = 3, mid = 1
+
+nums[mid] = 3 = nums[r]. 
+```
+但我们可以肯定的是，无论numbers[r]是不是最小值，左边都有一个它的代替品numbers[mid]，这时我们可以大胆忽略右端点r.
+
+```C++
+int minArray(vector<int>& numbers) {
+    int l = 0, r = numbers.size() - 1, mid;
+    while(l < r) {
+        mid = l + (r-l)/2;
+        if(numbers[mid] > numbers[r]) l = mid + 1;
+        else if(numbers[mid] < numbers[r]) r = mid;
+        // ==
+        else --r;
+
+    }
+    return numbers[r];
+}
+```
+
+时间复杂度：平均O(logn), 最差O(n)
+
+空间复杂度：O(1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+### 剑指 Offer 03. 数组中重复的数字
+
+[题目链接](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/)
+
+遍历
+
+```C++
+hash: (unordered_) set / map
+
+bool[]
+```
+
+时间复杂度:  bool - O(n),   hash:  不小于O(n)，不大于O(nlogn).
+
+空间复杂度:  O(n)
+
+
 
 **常规想法:**
 
@@ -502,87 +602,3 @@ int numWays(int n) {
 
 空间复杂度O(1).
 
-### 剑指 Offer 11. 旋转数组的最小数
-
-[题目链接](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/)
-
-这必然是让你设计O(logn)时间复杂度的查找算法.   
-
-`二分查找`
-
-若数组中没有重复元素，则问题简化为：[153. 寻找旋转排序数组中的最小值](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/)
-
-(以下，为了更形象的理解，可以画出折线图，参考官方题解中的图)
-
-收先明确，最小值一定比其后边所有位置上的元素都小.
-
-while(l <= r):
-* 如果nums[mid] > nums[r]，又min_element < nums[r]，则最小值一定在mid的右边，更新 l = mid + 1；
-* 如果nums[mid] < nums[r]，则说明最小值一定在mid左边，更新 r = mid - 1
-
-这里需要考虑，最后应该如何返回最小值. 对于一般的二分查找，当nums[mid] == target时，只需要返回mid即可，但这里我们并不知道target是啥，所以不能使用 == 时返回。
-
-考虑此种情况: l < mid < r, nums[mid] = min_element, nums[mid] < nums[r], 此时若更新r = mid - 1, 则永远找不到最小值.
-
-对于二分查找解决target不具体给出的问题，往往采用以下方式:
-```
-while(l < r) {
-    >： l = mid + 1
-    else( <= ): r = mid 而非 mid - 1，这样可以保证要查找的位置不会被跳过  
-}
-return nums[r]
-```
-好好体会吧. 对于不那么聪明的选手，模拟是最好的学习方式.
-
-**Solution：**
-
-```C++
-int findMin(vector<int>& nums) {
-    int l = 0, r = nums.size() - 1, mid;
-    while(l < r) {
-        mid = l + (r-l)/2;
-        if(nums[mid] > nums[r]) l = mid + 1;
-        else r = mid;
-    }
-    return nums[r];
-}
-```
-
-时/空: O(logn) / O(1)
-
-**回到原题目：**
-
-(这里仍建议画出折线图, 我知道聪明的你已经在脑里画好了)
-
-与上面的153.题相比，数组中的数字允许重复.
-
-多了numbers[mid] == numbers[r]的情况,
-
-对于这种情况，我们不知道最小值到底就是numbers[mid]，还是在在mid的左边，还是在mid的右边. 即可能出现以下情况：
-```txt
-{3, 3, 1, 3}
-
-l = 0, r = 3, mid = 1
-
-nums[mid] = 3 = nums[r]. 
-```
-但我们可以肯定的是，最小值一定不会出现在r的后边，只能出现在r的左边且不会是当前r所在的位置(while(l<r)，在l < r的条件下，l+(r-l)/2 必定小于r)。在这种情况下我们只需要--r。
-
-```C++
-int minArray(vector<int>& numbers) {
-    int l = 0, r = numbers.size() - 1, mid;
-    while(l < r) {
-        mid = l + (r-l)/2;
-        if(numbers[mid] > numbers[r]) l = mid + 1;
-        else if(numbers[mid] < numbers[r]) r = mid;
-        // ==
-        else r = mid;
-
-    }
-    return numbers[r];
-}
-```
-
-时间复杂度：平均O(logn), 最差O(n)
-
-空间复杂度：O(1)
