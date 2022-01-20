@@ -467,12 +467,94 @@ O(n), O(26)
 
 弱弱的问一句：官方题解是在憋本科毕设么？
 
+## 5. 搜索与回溯算法
 
+### 面试题32 - I. 从上到下打印二叉树
 
+[题目链接](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/)
 
+层次遍历，很纯很正宗
 
+```C++
+vector<int> levelOrder(TreeNode* root) {
+    if(!root) return {};
+    queue<TreeNode *> q;
+    q.push(root);
+    vector<int> result;
+    while(!q.empty()) {
+        TreeNode *cur = q.front();
+        q.pop();
+        result.push_back(cur->val);
+        if(cur->left) q.push(cur->left);
+        if(cur->right) q.push(cur->right);
+    }
+    return result;
+}
+```
 
+O(n), O(n)
 
+### 剑指 Offer 32 - II. 从上到下打印二叉树 II
+
+[题目链接](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/)
+
+层次遍历，进入新一层时，队列中有多少个元素，该层就有多少个节点
+
+```C++
+vector<vector<int>> levelOrder(TreeNode* root) {
+    if(!root) return {};
+    vector<vector<int>> result;
+    queue<TreeNode *> q;
+    q.push(root);
+    while(!q.empty()) {
+        int SIZE = q.size()；
+        vector<int> floor(SIZE);
+        for(int i=0; i<SIZE; ++i) {
+            TreeNode *cur = q.front();
+            q.pop();
+            floor.push_back(cur->val);
+            if(cur->left) q.push(cur->left);
+            if(cur->right) q.push(cur->right);
+        }
+        result.push_back(floor);
+    }
+    return result;
+}
+```
+
+O(n), O(n)
+
+### 剑指 Offer 32 - III. 从上到下打印二叉树 III
+
+[题目链接](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/)
+
+层次遍历，能用`vector`且不额外引入时间复杂度为`O(n)`级操作(如`reverse()`)的情况下,尽量使用`vector`而非`deque`,`deque`数据结构更复杂.
+
+```C++
+vector<vector<int>> levelOrder(TreeNode* root) {
+    if(!root) return {};
+    vector<vector<int>> result;
+    queue<TreeNode *> q;
+    q.push(root);
+    bool flag = false;
+    while(!q.empty()) {
+        int SIZE = q.size();
+        vector<int> floor(SIZE);
+        for(int i=0; i<SIZE; ++i) {
+            TreeNode *cur = q.front();
+            q.pop();
+            floor[flag ? SIZE-i-1 : i] = cur->val;
+            if(cur->left) q.push(cur->left);
+            if(cur->right) q.push(cur->right);
+        }
+        result.push_back(floor);
+        flag ^= true;
+    }
+    return result;
+}
+```
+
+O(n), O(n)
 
 
 
