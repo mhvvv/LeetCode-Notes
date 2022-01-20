@@ -528,7 +528,7 @@ O(n), O(n)
 
 [题目链接](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/)
 
-层次遍历，能用`vector`且不额外引入时间复杂度为`O(n)`级操作(如`reverse()`)的情况下,尽量使用`vector`而非`deque`,`deque`数据结构更复杂.
+层次遍历，能用`vector`且不额外引入时间复杂度为`非O(1)`级操作(如`reverse()`)的情况下,尽量使用`vector`而非`deque`,`deque`数据结构更复杂.
 
 ```C++
 vector<vector<int>> levelOrder(TreeNode* root) {
