@@ -556,14 +556,117 @@ vector<vector<int>> levelOrder(TreeNode* root) {
 
 O(n), O(n)
 
+### 剑指 Offer 26. 树的子结构
 
+[题目链接](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/)
 
+枚举A上每个可能的起始根节点.
 
+```C++
+class Solution {
+public:
+    bool isSubStructure(TreeNode* A, TreeNode* B) {
+        if(A == nullptr || B == nullptr) return false;
 
+        if(A->val == B->val && judge(A->left, B->left) && judge(A->right, B->right)) return true;
+        else return isSubStructure(A->left, B) || isSubStructure(A->right, B);
+    }
 
+    bool judge(TreeNode *A, TreeNode *B) {
+        if(B == nullptr) return true;
+        if(A == nullptr) return false;
 
+        return (A->val == B->val) && judge(A->left, B->left) && judge(A->right, B->right);
+    }
+};
+```
+n = A.size(), m = B.size()
+O(nm), O(n + m)
+
+### 剑指 Offer 27. 二叉树的镜像
+
+[题目链接](https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof/)
+
+遍历根结点，交换
+
+```C++
+TreeNode* mirrorTree(TreeNode* root) {
+    if(root == nullptr) return nullptr;
+    TreeNode *t = root->left;
+    root->left = root->right;
+    root->right = t;
+    mirrorTree(root->left);
+    mirrorTree(root->right);
+    return root;
+}
+```
+
+O(n), O(n).
+
+### 剑指 Offer 28. 对称的二叉树
+
+[题目链接](https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/)
+
+**思路1**：
+
+层次遍历
+
+对根节点的左右子树同时进行层次遍历，左子树从左到右，右子树从右到左(NULL结点也要入队但不会拓展). 层次遍历时比较即可
+
+```C++
+bool isSymmetric(TreeNode* root) {
+    if(root == nullptr) return true;
+    queue<TreeNode *> l, r;
+    l.push(root->left);
+    r.push(root->right);
+    while(!l.empty() && !r.empty()) {
+        TreeNode *lf = l.front(), *rf = r.front();
+        l.pop();
+        r.pop();
+        if(lf == nullptr && rf == nullptr) continue;
+        if(lf == nullptr && rf != nullptr) return false;
+        if(lf != nullptr && rf == nullptr) return false;
+        if(lf->val != rf ->val) return false;
+        l.push(lf->left);
+        l.push(lf->right);
+        r.push(rf->right);
+        r.push(rf->left);
+    }
+    return true;
+}
+```
+
+O(n),O(n)
+
+**思路2**：
+
+递归
+
+根节点的左右子树同时递归遍历，左子树： 根 - 左 - 右； 右子树：根 - 右 - 左
+
+```C++
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if(root == nullptr) return true;
+        
+        return judge(root->left, root->right);
+    }
+
+    bool judge(TreeNode *A, TreeNode *B) {
+        if(!A && !B) return true;
+        if((A && !B) || (!A && B)) return false;
+        if(A->val != B->val) return false;
+
+        return judge(A->left, B->right) && judge(A->right, B->left);
+    }
+};
+```
+
+O(n), O(n)
 
 ---
+
 
 ### 剑指 Offer 03. 数组中重复的数字
 
