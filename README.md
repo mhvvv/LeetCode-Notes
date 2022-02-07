@@ -1,5 +1,7 @@
 # Data structures and algorithms
 
-伟大思维闪耀，逻辑光芒万丈.
+```txt
+学好数据结构与算法，走遍天下都不怕. 大家好，我在MIT.
 
-
+                                     —— pku_郭炜
+```
